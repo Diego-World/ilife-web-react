@@ -1,86 +1,137 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FaUserAstronaut } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import { useForm } from "react-hook-form";
 
 const RegisterForm = () => {
 
-    const [formData, setFormData] = useState({
-        name:"",
-        email:"",
-        birthDate:"",
-        password:"",
-        confirmPassword:""
+    const { register, handleSubmit, getValues, formState:{errors}} = useForm({
+        defaultValues: {
+            name:"",
+            email:"",
+        }
     });
 
-    const handleChange = (e) => {
-        const {name, value} = e.target;
-        setFormData({...formData, [name]:value})
+    const onSubmit = (data) => console.log(data);
+
+    const validateBirthDate = (value) => {
+        const currentDate = new Date();
+        const selectedDate = new Date(value);
+        const minDate = new Date(currentDate.getFullYear() - 16, currentDate.getMonth(), currentDate.getDate());
+    
+        if (selectedDate >= minDate) {
+          return "You must be at least 16 years old.";
+        }
+        return true;
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        if (formData.password !== formData.confirmPassword) {
-            console.log("A senha e a confirmação de senha não são iguais.");
-
-            return; 
-          }
-          console.log("Formulário válido. Enviar para o servidor:");
-
-        console.log(formData);
+    const validatePassword = (value) => {
+        
+        if (value.length < 8) {
+            return false;
+        }
+        if (!/[A-Z]/.test(value)) {
+            return false;
+        }
+        if (!/\d/.test(value)) {
+            return false;
+        }
+        return true;
     };
 
-
+    const validateConfirmPassword = (value) => {
+        const { password } = getValues(); // Obter o valor do campo de senha
+        if (value !== password) {
+          return "Senhas divergentes";
+        }
+        return true;
+      };  
+      
   return (
     <div className='wrapper'>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+
             <h1>Register</h1>
+
             <div className="input-box">
                 <input type="text" 
                 placeholder="Name"
                 name="name"
-                value={formData.name}
-                onChange={handleChange}
+                {...register("name", {required:"Name is required",})}
                 required/>
                 <FaUserAstronaut className='icon'/>
             </div>
+            
+            <div className="input-box">
+            <input
+            type="text"
+            name="email"
+            {...register("email", {
+                required: "Email is required",
+                pattern: {
+                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                message: "Invalid email address"
+                }
+            })}
+            placeholder='Email'
+            />
+            {/* Ícone de usuário */}
+            <FaUserAstronaut className='icon'/>
+        </div>
+        {errors.email && <span>{errors.email.message}</span>}
+
+        <div className="input-box">
+        <input
+          type="date"
+          name="birthDate"
+          {...register("birthDate", {
+            required: "Birth date is required",
+            validate: validateBirthDate
+          })}
+          min="1924-01-01"
+          placeholder='Birth'
+        />
+        {/* Ícone de cadeado */}
+        <FaLock className='icon'/>
+      </div>
+      {/* Exibe a mensagem de erro para o campo de data de nascimento */}
+      {errors && errors.birthDate && <span>{errors.birthDate.message}</span>}
+
+      <div className="input-box">
+        <input
+          type="password"
+          name="password"
+          {...register("password", {
+            required: "Password is required",
+            validate: validatePassword
+          })}
+          placeholder='Password'
+        />
+        {/* Ícone de cadeado */}
+        <FaLock className='icon'/>
+      </div>
+      {/* Exibe a mensagem de erro para o campo de senha */}
+      {errors && errors.password && <span>{errors.password.message}</span>}
+
+            <h6>A senha deve ter no mínimo 8 caracteres</h6>
+            <h6>Letra maíscula, símbolo e número</h6>
 
             <div className="input-box">
-                <input type="text" 
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder='Email' required/>
-                <FaUserAstronaut className='icon'/>
-            </div>
-
-            <div className="input-box">
-                <input type="date" 
-                name="birthDate"
-                value={formData.birthDate}
-                onChange={handleChange}
-                min="1924-01-01" max="2004-01-01" placeholder='Birth' required/>
-                <FaLock className='icon'/>
-            </div>
-
-            <div className="input-box">
-                <input type="password" 
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder='Password' required/>
-                <FaLock className='icon'/>
-            </div>
-
-            <div className="input-box">
-                <input type="password" 
-                name="confirmPassword"
-                onChange={handleChange}
-                value={formData.confirmPassword}
-                placeholder='Confirm Password' required/>
-                <FaLock className='icon'/>
-            </div>
+        <input
+          type="password"
+          name="confirmPassword"
+          {...register("confirmPassword", {
+            required: "Confirmation password is required",
+            validate: validateConfirmPassword
+          })}
+          placeholder='Confirm Password'
+        />
+        {/* Ícone de cadeado */}
+        <FaLock className='icon'/>
+      </div>
+      {/* Exibe a mensagem de erro para o campo de confirmação de senha */}
+      {errors && errors.confirmPassword && <span>{errors.confirmPassword.message}</span>}
 
             <button type="submit">Register</button>
 
