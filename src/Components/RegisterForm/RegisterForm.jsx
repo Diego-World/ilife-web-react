@@ -1,8 +1,9 @@
 import React from 'react';
-import { FaUserAstronaut } from "react-icons/fa";
-import { FaLock } from "react-icons/fa";
+import { FaUser, FaLock } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
+import './RegisterForm.css';
 
 const RegisterForm = () => {
 
@@ -60,7 +61,7 @@ const RegisterForm = () => {
                 name="name"
                 {...register("name", {required:"Name is required",})}
                 required/>
-                <FaUserAstronaut className='icon'/>
+                <FaUser className='icon'/>
             </div>
             
             <div className="input-box">
@@ -77,12 +78,12 @@ const RegisterForm = () => {
             placeholder='Email'
             />
             {/* Ícone de usuário */}
-            <FaUserAstronaut className='icon'/>
+            <MdEmail className='icon'/>
         </div>
         {errors.email && <span>{errors.email.message}</span>}
 
         <div className="input-box">
-        <input
+        <input className="birth"
           type="date"
           name="birthDate"
           {...register("birthDate", {
@@ -93,7 +94,6 @@ const RegisterForm = () => {
           placeholder='Birth'
         />
         {/* Ícone de cadeado */}
-        <FaLock className='icon'/>
       </div>
       {/* Exibe a mensagem de erro para o campo de data de nascimento */}
       {errors && errors.birthDate && <span>{errors.birthDate.message}</span>}

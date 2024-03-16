@@ -17,11 +17,13 @@ const LoginForm = () => {
                 <input type="text" placeholder='Password' required/>
                 <FaLock className='icon'/>
             </div>
-
+            
+            {/*
             <div className="remember-forgot">
                 <label><input type='checkbox' />Remember me</label>
                 <a href='#'>Forgot password?</a>
             </div>
+            */}
 
             <button type="submit">Login</button>
 
