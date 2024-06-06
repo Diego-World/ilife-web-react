@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaUser, FaLock } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
+
 import './RegisterForm.css';
 
 const RegisterForm = () => {
@@ -11,10 +12,42 @@ const RegisterForm = () => {
         defaultValues: {
             name:"",
             email:"",
+            birthDate:"",
+            password:"",
+            confirmPassword:""
         }
     });
 
-    const onSubmit = (data) => console.log(data);
+    const [submitting, setSubmitting] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const onSubmit = async (data) => {
+        setSubmitting(true);
+        try {
+          
+          data.birthDate = new Date(data.birthDate).toISOString().split('T')[0];
+
+            const response = await fetch('http://localhost:8080/api/uregister', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            if (response.ok) {
+                // Registro bem-sucedido, redirecionar ou exibir uma mensagem de sucesso
+                console.log('Registration successful');
+            } else {
+                // Se houver algum erro na requisição, exibir a mensagem de erro
+                const errorData = await response.json();
+                setErrorMessage(errorData.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            setErrorMessage('Error occurred during registration.');
+        }
+        setSubmitting(false);
+    };
 
     const validateBirthDate = (value) => {
         const currentDate = new Date();
@@ -42,7 +75,7 @@ const RegisterForm = () => {
     };
 
     const validateConfirmPassword = (value) => {
-        const { password } = getValues(); // Obter o valor do campo de senha
+        const { password } = getValues();
         if (value !== password) {
           return "Senhas divergentes";
         }
@@ -133,8 +166,8 @@ const RegisterForm = () => {
       {/* Exibe a mensagem de erro para o campo de confirmação de senha */}
       {errors && errors.confirmPassword && <span>{errors.confirmPassword.message}</span>}
 
-            <button type="submit">Register</button>
-
+            <button type="submit" disabled={submitting}>Register</button>
+            {errorMessage && <p>{errorMessage}</p>}
             <div className="register-link">
                 <p>Already have an account? <Link to='/'>Login</Link></p>
             </div>
