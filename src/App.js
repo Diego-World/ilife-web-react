@@ -20,6 +20,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<LoginForm/ >}/>
           <Route path="/register" element={<RegisterForm/ >}/>
+          <Route path="/register" element={<RegisterForm/ >}/>
         </Routes>
     </div>
   </Router>
