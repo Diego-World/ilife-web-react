@@ -1,11 +1,145 @@
-.input-box .birth::-webkit-calendar-picker-indicator{
+/* Background container */
+.background {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+    width: 100vw;
+    background-image: url('../Assets/appleLogo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(0, 0, 0, 0.5); /* Ensure the background color matches */
+}
+
+/* Wrapper for the register form */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 420px;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Ensure the background color matches */
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(30px);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 30px 40px;
+    margin-left: 10px;
+}
+
+/* Title */
+.wrapper h1 {
+    font-size: 36px;
+    text-align: center;
+}
+
+/* Input boxes */
+.wrapper .input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+}
+
+/* Inputs */
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    outline: none;
+    border-radius: 40px;
+    font-size: 16px;
+    color: white;
+    padding: 0 20px;
+}
+
+.input-box input::placeholder {
+    color: white;
+}
+
+/* Icons */
+.input-box .icon {
     position: absolute;
-    background-color: hsla(0, 0%, 0%, 0.336);
-    border-radius: 20px;
-    border: none;
-    filter: invert(1);
     right: 20px;
     top: 50%;
     transform: translateY(-50%);
     font-size: 16px;
+}
+
+/* Error message */
+span {
+    color: red;
+    font-size: 12px;
+}
+
+/* Password hint */
+h6 {
+    font-size: 12px;
+    color: white;
+}
+
+/* Button */
+.wrapper button {
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 700;
+}
+
+/* Register link */
+.wrapper .register-link {
+    font-size: 14.5px;
+    text-align: center;
+    margin: 20px 0 15px;
+}
+
+.register-link p a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link p a:hover {
+    text-decoration: underline;
+}
+
+/* Additional styles for h6 elements */
+.senha {
+    margin-top: 10px; /* Espaçamento acima */
+    margin-bottom: 5px; /* Espaçamento abaixo */
+    text-align: center;
+    color: white;
+    display: block; /* Garante que os elementos sejam blocos separados */
+    line-height: 1.5; /* Ajusta a altura da linha para garantir espaçamento vertical */
+}
+
+.letra {
+    margin-top: 5px; /* Espaçamento acima */
+    margin-bottom: 10px; /* Espaçamento abaixo */
+    text-align: center;
+    color: white;
+    display: block; /* Garante que os elementos sejam blocos separados */
+    line-height: 1.5; /* Ajusta a altura da linha para garantir espaçamento vertical */
+}
+
+/* Media query to maintain background color on smaller screens */
+@media (max-width: 768px) {
+    .background {
+        background: rgba(0, 0, 0, 0.5); /* Maintain the background color */
+    }
+
+    .wrapper {
+        width: 100%;
+        height: 100vh;
+        margin-left: 0;
+    }
 }

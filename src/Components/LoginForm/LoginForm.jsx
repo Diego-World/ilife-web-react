@@ -1,110 +1,87 @@
 import React, { useState } from 'react';
-import { FaUser, FaLock } from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
-import { Link } from 'react-router-dom';
-import { useForm } from "react-hook-form";
-import './RegisterForm.css';
+import './LoginForm.css';
+import { FaUserAstronaut, FaLock } from "react-icons/fa";
 
-const RegisterForm = () => {
-    const { register, handleSubmit, getValues, formState: { errors } } = useForm({
-        defaultValues: {
-            name: "",
-            email: "",
-            birthDate: "",
-            password: "",
-            confirmPassword: ""
-        }
-    });
+const LoginForm = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // Estado para controlar se a senha deve ser exibida ou ocultada
+  const [errors, setErrors] = useState({});
 
-    const [submitting, setSubmitting] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    if (name === 'username') {
+      setUsername(value);
+    } else if (name === 'password') {
+      setPassword(value);
+    }
+  };
 
-    const onSubmit = async (data) => {
-        setSubmitting(true);
-        try {
-            data.birthDate = new Date(data.birthDate).toISOString().split('T')[0];
-            const response = await fetch('http://localhost:8080/api/uregister', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-            if (response.ok) {
-                console.log('Registration successful');
-            } else {
-                const errorData = await response.json();
-                setErrorMessage(errorData.message);
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            setErrorMessage('Error occurred during registration.');
-        }
-        setSubmitting(false);
-    };
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword); // Alternar entre exibir e ocultar a senha
+  };
 
-    const validateBirthDate = (value) => {
-        const currentDate = new Date();
-        const selectedDate = new Date(value);
-        const minDate = new Date(currentDate.getFullYear() - 16, currentDate.getMonth(), currentDate.getDate());
-        if (selectedDate >= minDate) {
-            return "You must be at least 16 years old.";
-        }
-        return true;
-    };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Realize suas validações aqui
+    const errors = {};
+    if (!username.trim()) {
+      errors.username = 'Username is required';
+    }
+    if (!password.trim()) {
+      errors.password = 'Password is required';
+    }
+    if (Object.keys(errors).length === 0) {
+      // Se não houver erros, envie os dados de login
+      console.log('Username:', username);
+      console.log('Password:', password);
+      // Aqui você pode enviar os dados para o backend para autenticação
+    } else {
+      // Se houver erros, atualize o estado com os erros
+      setErrors(errors);
+    }
+  };
 
-    const validatePassword = (value) => {
-        if (value.length < 8) return false;
-        if (!/[A-Z]/.test(value)) return false;
-        if (!/\d/.test(value)) return false;
-        return true;
-    };
+  return (
+    <div className='background'>
+      <div className='wrapper'>
+        <form onSubmit={handleSubmit}>
+          <h1>Login</h1>
+          <div className="input-box">
+            <input
+              type="text"
+              name="username"
+              placeholder='Username'
+              value={username}
+              onChange={handleInputChange}
+              required
+            />
+            <FaUserAstronaut className='icon' />
+          </div>
+          {errors.username && <p className="error-message">{errors.username}</p>}
 
-    const validateConfirmPassword = (value) => {
-        const { password } = getValues();
-        if (value !== password) return "Senhas divergentes";
-        return true;
-    };
+          <div className="input-box">
+            <input
+              type={showPassword ? "text" : "password"} // Use o estado showPassword para alternar entre "text" e "password"
+              name="password"
+              placeholder='Password'
+              value={password}
+              onChange={handleInputChange}
+              required
+            />
+            <FaLock className='icon' onClick={handleTogglePassword} style={{ cursor: 'pointer' }} /> {/* Adicione um evento de clique para alternar a exibição da senha */}
+          </div>
+          {errors.password && <p className="error-message">{errors.password}</p>}
 
-    return (
-        <div className='background'>
-            <div className='wrapper'>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <h1>Register</h1>
-                    <div className="input-box">
-                        <input type="text" placeholder="Name" name="name" {...register("name", { required: "Name is required" })} required />
-                        <FaUser className='icon' />
-                    </div>
-                    <div className="input-box">
-                        <input type="text" name="email" {...register("email", { required: "Email is required", pattern: { value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, message: "Invalid email address" } })} placeholder='Email' />
-                        <MdEmail className='icon' />
-                    </div>
-                    {errors.email && <span>{errors.email.message}</span>}
-                    <div className="input-box">
-                        <input className="birth" type="date" name="birthDate" {...register("birthDate", { required: "Birth date is required", validate: validateBirthDate })} min="1924-01-01" placeholder='Birth' />
-                    </div>
-                    {errors.birthDate && <span>{errors.birthDate.message}</span>}
-                    <div className="input-box">
-                        <input type="password" name="password" {...register("password", { required: "Password is required", validate: validatePassword })} placeholder='Password' />
-                        <FaLock className='icon' />
-                    </div>
-                    {errors.password && <span>{errors.password.message}</span>}
-                    <h6 className='senha'>A senha deve ter no mínimo 8 caracteres</h6>
-                    <h6 id='letra'>Letra maiúscula, símbolo e número</h6>
-                    <div className="input-box">
-                        <input type="password" name="confirmPassword" {...register("confirmPassword", { required: "Confirmation password is required", validate: validateConfirmPassword })} placeholder='Confirm Password' />
-                        <FaLock className='icon' />
-                    </div>
-                    {errors.confirmPassword && <span>{errors.confirmPassword.message}</span>}
-                    <button type="submit" disabled={submitting}>Register</button>
-                    {errorMessage && <p>{errorMessage}</p>}
-                    <div className="register-link">
-                        <p>Already have an account? <Link to='/'>Login</Link></p>
-                    </div>
-                </form>
-            </div>
-        </div>
-    )
+          <button type="submit">Login</button>
+
+          <div className="register-link">
+            <p>Don't have an account? <a href='/register'>Register</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 }
 
-export default RegisterForm;
+export default LoginForm;
