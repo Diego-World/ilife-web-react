@@ -1,11 +1,97 @@
-.input-box .birth::-webkit-calendar-picker-indicator{
-    position: absolute;
-    background-color: hsla(0, 0%, 0%, 0.336);
-    border-radius: 20px;
-    border: none;
-    filter: invert(1);
-    right: 20px;
+.register-background {
+    height: 100vh;
+    width: 70vw;
+    background-image: url('../Assets/appleLogo.jpg');
+    background-size: cover;
+    background-position: top;
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
+.register-container {
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    height: 100vh;
+    width: 30vw;
+    padding: 10px;
+    overflow: hidden; 
+}
+
+.register-login { 
+    max-width: 400px; 
+    margin: auto;
+    padding: 20px;
+    background-color: #f9f9f9; 
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.register-h1 {
+    font-family: Poppins;
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+.register-name-box,
+.register-email-box,
+.register-aniversario-box,
+.register-senha-box {
+    margin-bottom: 20px; 
+    display: flex;
+    align-items: center; 
+    position: relative; 
+}
+
+.register-name-box input,
+.register-email-box input,
+.register-aniversario-box input,
+.register-senha-box input {
+    flex: 1; 
+    padding: 10px 40px 10px 10px; 
+    border-radius: 5px;
+    border: 1px solid #ccc; 
+}
+
+.icon {
+    position: absolute; 
+    right: 10px; 
     top: 50%;
-    transform: translateY(-50%);
-    font-size: 16px;
+    transform: translateY(-50%); 
+    font-size: 20px;
+    color: #666;
+}
+
+/* Estilizar input de data dentro de register-aniversario-box */
+.register-aniversario-box input[type="date"] {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff; /* Cor de fundo */
+    font-size: 16px; /* Tamanho da fonte */
+    color: #666; /* Cor do texto */
+}
+
+/* Estilizar input de data quando em foco dentro de register-aniversario-box */
+.register-aniversario-box input[type="date"]:focus {
+    border-color: dodgerblue;
+    outline: none; /* Remover contorno padrão */
+    color: #666; /* Manter a cor do texto */
+}
+
+/* Estilizar ícone ao lado do input de data */
+.register-aniversario-box .icon {
+    position: absolute; 
+    right: 10px; 
+    top: 50%;
+    transform: translateY(-50%); 
+    font-size: 20px;
+    color: #666;
+}
+
+span {
+    color: red; 
+    font-size: 14px;
 }
