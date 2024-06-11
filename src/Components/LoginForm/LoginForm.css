@@ -1,115 +1,85 @@
-/* Background container */
-.background {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+.login-background {
     height: 100vh;
-    width: 100vw;
+    width: 70vw;
     background-image: url('../Assets/appleLogo.jpg');
     background-size: cover;
-    background-position: center;
-    background-color: rgba(0, 0, 0, 0.5); /* Ensure the background color matches */
+    background-position: top;
+    position: fixed;
+    right: 0;
+    top: 0;
 }
 
-/* Wrapper for the login form */
-.wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 420px;
-    height: auto;
-    background-color: rgba(0, 0, 0, 0.5); /* Ensure the background color matches */
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(30px);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-    color: white;
-    border-radius: 10px;
-    padding: 30px 40px;
-    margin-left: 10px;
+.login-container {
+    display: flex; /* Usar flexbox para alinhar os itens */
+    flex-direction: column; /* Organizar os itens em coluna */
+    justify-content: center; /* Centralizar verticalmente os itens */
+    height: 100vh;
+    width: 30vw;
+    padding: 10px;
+    overflow: hidden; /* Ocultar conteúdo que ultrapassar as bordas do contêiner */
 }
 
-/* Title */
-.wrapper h1 {
-    font-size: 36px;
-    text-align: center;
-}
-
-/* Input boxes */
-.wrapper .input-box {
-    position: relative;
-    width: 100%;
-    height: 50px;
-    margin: 30px 0;
-}
-
-/* Inputs */
-.input-box input {
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    outline: none;
-    border-radius: 40px;
-    font-size: 16px;
-    color: white;
-    padding: 0 20px;
-}
-
-.input-box input::placeholder {
-    color: white;
-}
-
-/* Icons */
-.input-box .icon {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 16px;
-}
-
-/* Button */
-.wrapper button {
-    width: 100%;
-    height: 45px;
-    background: #fff;
-    border: none;
-    outline: none;
-    border-radius: 40px;
+.form-login {
+    width: 100%; /* Fazer o formulário ocupar toda a largura do contêiner */
+    max-width: 300px; /* Definir uma largura máxima para o formulário */
+    margin: auto;
+    padding: 20px;
+    background-color: #f9f9f9; /* Fundo do Forms do Login */
+    border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    font-size: 16px;
-    color: #333;
-    font-weight: 700;
 }
 
-/* Register link */
-.wrapper .register-link {
-    font-size: 14.5px;
-    text-align: center;
-    margin: 20px 0 15px;
+.login-h1 {
+    font-family: Poppins;
+    font-size: 25px;
+    margin-bottom: 20px;
 }
 
-.register-link p a {
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
+.login-input-box,
+.senha-input-box {
+    position: relative; /* Para que possamos posicionar os ícones relativamente a estes elementos */
+    margin-bottom: 20px; /* Adicione um espaço entre os inputs */
 }
 
-.register-link p a:hover {
-    text-decoration: underline;
+.login-input-box input,
+.senha-input-box input {
+    width: calc(100% - 10px); /* Ajuste a largura para acomodar o ícone */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
-/* Media query to maintain background color on smaller screens */
-@media (max-width: 768px) {
-    .background {
-        background: rgba(0, 0, 0, 0.5);
-    }
+.login-input-box input::placeholder,
+.senha-input-box input::placeholder {
+    color: #999; /* Defina a cor do texto de espaço reservado */
+}
 
-    .wrapper {
-        width: 100%;
-        height: 100vh;
-        margin-left: 0;
-    }
+.login-input-box .login-icon,
+.senha-input-box .senha-icon {
+    position: absolute; /* Posicione os ícones de forma absoluta */
+    top: 50%; /* Alinhe verticalmente ao meio */
+    transform: translateY(-50%); /* Corrija a posição vertical */
+    right: 10px; /* Distância do ícone à direita */
+}
+
+
+.login-button {
+    width: 100%; /* Ocupa toda a largura disponível */
+    padding: 10px; /* Espaçamento interno */
+    background-color: #007bff; /* Cor de fundo */
+    color: #fff; /* Cor do texto */
+    border: none; /* Sem borda */
+    border-radius: 5px; /* Borda arredondada */
+    cursor: pointer; /* Cursor de apontar */
+    transition: background-color 0.3s; /* Efeito de transição na cor de fundo */
+}
+
+.login-button:hover {
+    background-color: #0056b3; /* Cor de fundo alterada no hover */
+}
+
+.login-paragrafo {
+    font-family: sans-serif;
+    margin-top: 30px;
+    font-family: Poppins;
 }

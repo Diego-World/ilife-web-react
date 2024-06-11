@@ -43,11 +43,12 @@ const LoginForm = () => {
   };
 
   return (
-    <div className='background'>
-      <div className='wrapper'>
-        <form onSubmit={handleSubmit}>
-          <h1>Login</h1>
-          <div className="input-box">
+    <div className='login-container'>
+      <div className='login-form'>
+        <form className='form-login' onSubmit={handleSubmit}>
+          <h1 className='login-h1'>Login</h1>
+
+          <div className="login-input-box">
             <input
               type="text"
               name="username"
@@ -56,11 +57,11 @@ const LoginForm = () => {
               onChange={handleInputChange}
               required
             />
-            <FaUserAstronaut className='icon' />
+            <FaUserAstronaut className='login-icon' />
           </div>
-          {errors.username && <p className="error-message">{errors.username}</p>}
+          {errors.username && <p className="login-error-message">{errors.username}</p>}
 
-          <div className="input-box">
+          <div className="senha-input-box">
             <input
               type={showPassword ? "text" : "password"} // Use o estado showPassword para alternar entre "text" e "password"
               name="password"
@@ -69,17 +70,19 @@ const LoginForm = () => {
               onChange={handleInputChange}
               required
             />
-            <FaLock className='icon' onClick={handleTogglePassword} style={{ cursor: 'pointer' }} /> {/* Adicione um evento de clique para alternar a exibição da senha */}
+            <FaLock className='senha-icon' onClick={handleTogglePassword} style={{ cursor: 'pointer' }} /> {/* Adicione um evento de clique para alternar a exibição da senha */}
           </div>
-          {errors.password && <p className="error-message">{errors.password}</p>}
+          {errors.password && <p className="senha-error-message">{errors.password}</p>}
 
-          <button type="submit">Login</button>
+          <button className='login-button' type="submit">Login</button>
 
-          <div className="register-link">
-            <p>Don't have an account? <a href='/register'>Register</a></p>
+          <div className="login-register-link">
+            <p className='login-paragrafo'>Don't have an account? <a href='/register'>Register</a></p>
           </div>
         </form>
+
       </div>
+      <div className='login-background' />
     </div>
   );
 }

@@ -67,42 +67,41 @@ const RegisterForm = () => {
     };
 
     return (
-        <div className='background'>
-            <div className='wrapper'>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <h1>Register</h1>
-                    <div className="input-box">
-                        <input type="text" placeholder="Name" name="name" {...register("name", { required: "Name is required" })} required />
-                        <FaUser className='icon' />
-                    </div>
-                    <div className="input-box">
-                        <input type="text" name="email" {...register("email", { required: "Email is required", pattern: { value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, message: "Invalid email address" } })} placeholder='Email' />
-                        <MdEmail className='icon' />
-                    </div>
-                    {errors.email && <span>{errors.email.message}</span>}
-                    <div className="input-box">
-                        <input className="birth" type="date" name="birthDate" {...register("birthDate", { required: "Birth date is required", validate: validateBirthDate })} min="1924-01-01" placeholder='Birth' />
-                    </div>
-                    {errors.birthDate && <span>{errors.birthDate.message}</span>}
-                    <div className="input-box">
-                        <input type="password" name="password" {...register("password", { required: "Password is required", validate: validatePassword })} placeholder='Password' />
-                        <FaLock className='icon' />
-                    </div>
-                    {errors.password && <span>{errors.password.message}</span>}
-                    <h6 className='senha'>A senha deve ter no mínimo 8 caracteres</h6>
-                    <h6 id='letra'>Letra maiúscula, símbolo e número</h6>
-                    <div className="input-box">
-                        <input type="password" name="confirmPassword" {...register("confirmPassword", { required: "Confirmation password is required", validate: validateConfirmPassword })} placeholder='Confirm Password' />
-                        <FaLock className='icon' />
-                    </div>
-                    {errors.confirmPassword && <span>{errors.confirmPassword.message}</span>}
-                    <button type="submit" disabled={submitting}>Register</button>
-                    {errorMessage && <p>{errorMessage}</p>}
-                    <div className="register-link">
-                        <p>Already have an account? <Link to='/'>Login</Link></p>
-                    </div>
-                </form>
-            </div>
+        <div className='register-container'>
+            <form className='register-login' onSubmit={handleSubmit(onSubmit)}>
+                <h1 className='register-h1'>Criar uma nova conta</h1>
+                <div className="register-name-box">
+                    <input type="text" placeholder="Name" name="name" {...register("name", { required: "Name is required" })} required />
+                    <FaUser className='icon' />
+                </div>
+                <div className="register-email-box">
+                    <input type="text" name="email" {...register("email", { required: "Email is required", pattern: { value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, message: "Invalid email address" } })} placeholder='Email' />
+                    <MdEmail className='icon' />
+                </div>
+                {errors.email && <span>{errors.email.message}</span>}
+                <div className="register-aniversario-box">
+                    <input type="date" name="birthDate" {...register("birthDate", { required: "Birth date is required", validate: validateBirthDate })} min="1924-01-01" placeholder='Birth' />
+                </div>
+                {errors.birthDate && <span>{errors.birthDate.message}</span>}
+                <div className="register-senha-box">
+                    <input type="password" name="password" {...register("password", { required: "Password is required", validate: validatePassword })} placeholder='Password' />
+                    <FaLock className='icon' />
+                </div>
+                {errors.password && <span>{errors.password.message}</span>}
+                <div className="register-senha-box">
+                    <input type="password" name="confirmPassword" {...register("confirmPassword", { required: "Confirmation password is required", validate: validateConfirmPassword })} placeholder='Confirm Password' />
+                    <FaLock className='icon' />
+                </div>
+                {errors.confirmPassword && <span>{errors.confirmPassword.message}</span>}
+                <h6 className='register-senha'>A senha deve ter no mínimo 8 caracteres</h6>
+                <h6 id='letra'>Letra maiúscula, símbolo e número</h6>
+                <button type="submit" disabled={submitting}>Register</button>
+                {errorMessage && <p>{errorMessage}</p>}
+                <div className="register-link">
+                    <p>Já tem uma conta? <Link to='/'>Login</Link></p>
+                </div>
+            </form>
+            <div className='register-background' />
         </div>
     )
 }
