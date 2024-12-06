@@ -4,6 +4,7 @@ import RegisterForm from './Components/RegisterForm/RegisterForm'
 import LoginForm from './Components/LoginForm/LoginForm';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
+
 function App() {
   const [isLogin, setIsLogin] = useState(true);
 
@@ -12,17 +13,19 @@ function App() {
   };
 
   return (
+    <Router>
     <div className="page-container">
       <div className="background-container">
-        {/* A div do background pode ter uma imagem ou cor de fundo fixa */}
       </div>
-      <div className="form-container">
-        {isLogin ? <LoginForm /> : <RegisterForm />} {/* Exibe o componente baseado no estado */}
-        <button onClick={toggleForm}>
-          {isLogin ? 'Criar uma conta' : 'Já tem uma conta?'} {/* Texto do botão alternando */}
-        </button>
+      <div className="App">
+        <Routes>
+          <Route exact path="/" element={<LoginForm/ >}/>
+          <Route path="/register" element={<RegisterForm/ >}/>
+          <Route exact path="/" element={<LoginForm/ >}/>
+        </Routes>
       </div>
     </div>
+    </Router>
   );
 }
 
