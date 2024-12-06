@@ -1,14 +1,3 @@
-.login-background {
-    height: 100vh;
-    width: 70vw;
-    background-image: url('../Assets/appleLogo.jpg');
-    background-size: cover;
-    background-position: top;
-    position: fixed;
-    right: 0;
-    top: 0;
-}
-
 .login-container {
     display: flex; /* Usar flexbox para alinhar os itens */
     flex-direction: column; /* Organizar os itens em coluna */

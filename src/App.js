@@ -1,27 +1,28 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import RegisterForm from './Components/RegisterForm/RegisterForm'
 import LoginForm from './Components/LoginForm/LoginForm';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-/* import { useQuery } from '@tanstack/react-query'; */
 
 function App() {
+  const [isLogin, setIsLogin] = useState(true);
 
+  const toggleForm = () => {
+    setIsLogin(prevState => !prevState);  // Alterna o estado
+  };
 
-  /*
-  const {data} = useQuery("ping", ()=>{
-    return axios.get("http://localhost8080/pong")
-  }); */
-  
   return (
-  <Router>
-      <div className="App">
-        <Routes>
-          <Route path="/register" element={<RegisterForm/ >}/>
-          <Route exact path="/" element={<LoginForm/ >}/>
-        </Routes>
+    <div className="page-container">
+      <div className="background-container">
+        {/* A div do background pode ter uma imagem ou cor de fundo fixa */}
+      </div>
+      <div className="form-container">
+        {isLogin ? <LoginForm /> : <RegisterForm />} {/* Exibe o componente baseado no estado */}
+        <button onClick={toggleForm}>
+          {isLogin ? 'Criar uma conta' : 'Já tem uma conta?'} {/* Texto do botão alternando */}
+        </button>
+      </div>
     </div>
-  </Router>
   );
 }
 

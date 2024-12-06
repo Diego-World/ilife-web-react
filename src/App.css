@@ -1,27 +1,53 @@
-.App {
-  text-align: center;
+/* App.css */
+.page-container {
+  display: flex;
+  height: 100vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.background-container {
+  width: 70vw;  /* Ajuste conforme necessário */
+  background-image: url('Assets/iLifeBackGround.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30vw;  /* Ajuste conforme necessário */
+  padding: 20px;
+  background-color: #fff;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+  .page-container {
+    flex-direction: column; /* Muda para coluna em telas menores */
   }
-}
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  .background-container {
+    width: 100vw;
+    height: 50vh;
   }
-  to {
-    transform: rotate(360deg);
+
+  .form-container {
+    width: 100vw;
+    height: 50vh;
   }
 }
